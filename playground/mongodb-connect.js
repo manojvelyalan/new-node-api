@@ -35,8 +35,15 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp',{ useNewUrlParser: true 
     console.log(JSON.stringify(docs,undefined,2));
   },(error)=>{
     console.log("Sorry unable to fetch the reccord",error);
-  });*/
+  });
   db.collection('Users').findOneAndDelete({Customer:'Normal'}).then((results)=>{
+    console.log(JSON.stringify(results,undefined,2));
+  },(error)=>{
+    console.log("Sorry unable to delete the reccord",error);
+  });*/
+
+
+  db.collection('Users').findOneAndUpdate({_id:new ObjectID('5c5b3d0f01219679d20a2e3a')},{$set:{Customer:'cccccc'}},{returnOriginal:false}).then((results)=>{
     console.log(JSON.stringify(results,undefined,2));
   },(error)=>{
     console.log("Sorry unable to delete the reccord",error);
