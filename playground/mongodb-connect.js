@@ -30,11 +30,15 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp',{ useNewUrlParser: true 
     console.log(JSON.stringify(`count of an documents:${count}`));
   },(error)=>{
     console.log("Sorry unable to fetch the reccord",error);
-  });*/
+  });
   db.collection('Users').find({FullName:'Manoj Velyalan'}).toArray().then((docs)=>{
     console.log(JSON.stringify(docs,undefined,2));
   },(error)=>{
     console.log("Sorry unable to fetch the reccord",error);
+  });*/
+  db.collection('Users').findOneAndDelete({Customer:'Normal'}).then((results)=>{
+    console.log(JSON.stringify(results,undefined,2));
+  },(error)=>{
+    console.log("Sorry unable to delete the reccord",error);
   });
-
 },);
