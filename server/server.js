@@ -1,30 +1,26 @@
-const mongoose = require('mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-mongoose.Promise = global.Promise;
+const {mongoose} = require('../db/mongoose.js');
+const {App} = require('../models/app.js');
 
-mongoose.connect('mongodb://localhost:27017/NewApp',{ useNewUrlParser: true });
+var app = express();
 
-var App = mongoose.model('app',{
-  'name':{
-    type:String
+app.use(bodyParser.json());
 
-  },
-  'age':{
-    type:Number,
-    required:true
-  },
-  'date':{
-    type:Date
-  }
+app.post('/app',(req , res)=>{
+  var newApp = new App({
+    name:req.body.name,
+    age:req.body.age,
+    date:new Date(req.body.date),
+  });
+  newApp.save().then((docs)=>{
+    res.send(docs);
+  },(error)=>{
+  res.status(400).send(error);
+});
 });
 
-var newApp = new App({
-  name:'Manoj',
-  age:65,
-  date:new Date('1983-05-23'),
-});
-newApp.save().then((docs)=>{
-  console.log(docs);
-},(error)=>{
-console.log('unable to save the reccord',error)
+app.listen(3000,()=>{
+  console.log('server connected');
 });
